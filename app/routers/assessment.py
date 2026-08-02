@@ -6,7 +6,12 @@ from app.core.auth import get_current_user
 
 from app.schemas.assessment import AssessmentCreate
 
-from app.services.prediction_service import predict_fatigue
+from app.services.assessment_service import predict_assessment
+
+from app.repositories.assessment_repository import (
+    get_user_assessments,
+)
+
 
 
 router = APIRouter(
@@ -15,20 +20,45 @@ router = APIRouter(
 )
 
 
+
+# ==========================
+# Predict Assessment
+# ==========================
+
 @router.post("/predict")
 def predict(
     assessment: AssessmentCreate,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
-    prediction = predict_fatigue(
+
+    result = predict_assessment(
         db=db,
         assessment=assessment,
         user_id=current_user.id,
     )
 
-    return {
-        "score": prediction.fatigue_score,
-        "risk_level": prediction.risk_level,
-        "model_version": prediction.model_version,
-    }
+
+    return result
+
+
+
+
+
+# ==========================
+# Assessment History
+# ==========================
+
+@router.get("/history")
+def assessment_history(
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
+
+    assessments = get_user_assessments(
+        db,
+        current_user.id,
+    )
+
+
+    return assessments

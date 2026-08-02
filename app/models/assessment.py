@@ -5,6 +5,7 @@ from app.core.database import Base
 
 
 class Assessment(Base):
+
     __tablename__ = "assessments"
 
     id = Column(

@@ -21,6 +21,7 @@ from app.repositories.recommendation_repository import (
 )
 
 
+
 def get_dashboard(
     db: Session,
     user_id: int,
@@ -28,6 +29,8 @@ def get_dashboard(
     """
     Mengambil seluruh data dashboard milik user.
     """
+
+
 
     # ==========================
     # User
@@ -38,8 +41,13 @@ def get_dashboard(
         user_id,
     )
 
+
     if not user:
         raise Exception("User not found")
+
+
+
+
 
     # ==========================
     # Assessment
@@ -50,6 +58,10 @@ def get_dashboard(
         user_id,
     )
 
+
+
+
+
     # ==========================
     # Activity Notes
     # ==========================
@@ -58,6 +70,10 @@ def get_dashboard(
         db,
         user_id,
     )
+
+
+
+
 
     # ==========================
     # Latest Prediction
@@ -68,6 +84,10 @@ def get_dashboard(
         user_id,
     )
 
+
+
+
+
     # ==========================
     # Latest Recommendation
     # ==========================
@@ -77,47 +97,97 @@ def get_dashboard(
         user_id,
     )
 
+
+
+
+
     # ==========================
     # Response
     # ==========================
 
     return {
+
+
         "user": {
+
             "id": user.id,
+
             "full_name": user.full_name,
+
             "email": user.email,
+
         },
+
+
 
         "total_assessments": len(assessments),
 
+
+
         "total_activity_notes": len(activity_notes),
 
+
+
+
+
         "latest_prediction": (
+
             {
+
                 "fatigue_score": latest_prediction.fatigue_score,
+
                 "risk_level": latest_prediction.risk_level,
+
                 "model_version": latest_prediction.model_version,
+
             }
+
             if latest_prediction
+
             else None
+
         ),
+
+
+
+
 
         "latest_recommendation": (
+
             {
-                "text": latest_recommendation.recommendation_text,
+
+                "risk_level": latest_recommendation.risk_level,
+
+                "message": latest_recommendation.message,
+
             }
+
             if latest_recommendation
+
             else None
+
         ),
 
+
+
+
+
         "activity_notes": [
+
             {
+
                 "id": note.id,
-                "activity": note.activity,
-                "duration": note.duration,
-                "stress_level": note.stress_level,
-                "energy_level": note.energy_level,
+
+                "title": note.title,
+
+                "note": note.note,
+
             }
+
             for note in activity_notes
+
         ],
+
+
+
     }
