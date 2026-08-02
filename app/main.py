@@ -41,6 +41,7 @@ origins = [
     "http://localhost:5173",
 
     "https://ritles-web-apps-16oy.vercel.app",
+    "https://ritles-web-apps-news.vercel.app/",
 
 ]
 
