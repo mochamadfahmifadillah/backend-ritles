@@ -24,7 +24,7 @@ app = FastAPI(
 # =========================
 origins = [
     "http://localhost:5173",
-    "https://ritles-web-apps-5gi8.vercel.app/",  # ganti nanti dengan URL frontend
+    "https://ritles-web-apps-5gi8.vercel.app",  # ganti nanti dengan URL frontend
 ]
 
 app.add_middleware(
