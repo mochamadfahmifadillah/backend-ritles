@@ -22,11 +22,14 @@ app = FastAPI(
 # =========================
 # CORS
 # =========================
+origins = [
+    "http://localhost:5173",
+    "https://ritles-web-apps-5gi8.vercel.app/",  # ganti nanti dengan URL frontend
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-    ],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,6 +50,7 @@ def root():
         "version": "1.0.0",
         "status": "healthy",
     }
+
 
 app.include_router(auth.router)
 app.include_router(users.router)
