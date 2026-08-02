@@ -8,16 +8,16 @@ from app.repositories.assessment_repository import (
     get_user_assessments,
 )
 
-from app.repositories.prediction_repository import (
-    get_user_predictions,
-)
-
 from app.repositories.activityNote_repository import (
     get_activity_notes_by_user,
 )
 
+from app.repositories.prediction_repository import (
+    get_latest_prediction,
+)
+
 from app.repositories.recommendation_repository import (
-    get_user_recommendations,
+    get_latest_recommendation,
 )
 
 
@@ -29,6 +29,10 @@ def get_dashboard(
     Mengambil seluruh data dashboard milik user.
     """
 
+    # ==========================
+    # User
+    # ==========================
+
     user = get_user_by_id(
         db,
         user_id,
@@ -37,50 +41,83 @@ def get_dashboard(
     if not user:
         raise Exception("User not found")
 
+    # ==========================
+    # Assessment
+    # ==========================
 
     assessments = get_user_assessments(
         db,
         user_id,
     )
 
-
-    predictions = get_user_predictions(
-        db,
-        user_id,
-    )
-
-
-    recommendations = get_user_recommendations(
-        db,
-        user_id,
-    )
-
+    # ==========================
+    # Activity Notes
+    # ==========================
 
     activity_notes = get_activity_notes_by_user(
         db,
         user_id,
     )
 
+    # ==========================
+    # Latest Prediction
+    # ==========================
 
-    latest_prediction = (
-        predictions[-1]
-        if predictions
-        else None
+    latest_prediction = get_latest_prediction(
+        db,
+        user_id,
     )
 
+    # ==========================
+    # Latest Recommendation
+    # ==========================
 
-    latest_recommendation = (
-        recommendations[-1]
-        if recommendations
-        else None
+    latest_recommendation = get_latest_recommendation(
+        db,
+        user_id,
     )
 
+    # ==========================
+    # Response
+    # ==========================
 
     return {
-        "user": user,
+        "user": {
+            "id": user.id,
+            "full_name": user.full_name,
+            "email": user.email,
+        },
+
         "total_assessments": len(assessments),
+
         "total_activity_notes": len(activity_notes),
-        "latest_prediction": latest_prediction,
-        "latest_recommendation": latest_recommendation,
-        "activity_notes": activity_notes,
+
+        "latest_prediction": (
+            {
+                "fatigue_score": latest_prediction.fatigue_score,
+                "risk_level": latest_prediction.risk_level,
+                "model_version": latest_prediction.model_version,
+            }
+            if latest_prediction
+            else None
+        ),
+
+        "latest_recommendation": (
+            {
+                "text": latest_recommendation.recommendation_text,
+            }
+            if latest_recommendation
+            else None
+        ),
+
+        "activity_notes": [
+            {
+                "id": note.id,
+                "activity": note.activity,
+                "duration": note.duration,
+                "stress_level": note.stress_level,
+                "energy_level": note.energy_level,
+            }
+            for note in activity_notes
+        ],
     }
