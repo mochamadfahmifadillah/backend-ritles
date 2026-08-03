@@ -1,8 +1,8 @@
-# 🧠 Ritles Backend
+# Backend Ritles
 
 Backend API untuk aplikasi **Ritles (Risk Level of Mental Fatigue System)** yang dikembangkan menggunakan **FastAPI**. Backend berfungsi untuk mengelola autentikasi pengguna, pemrosesan data, komunikasi dengan database PostgreSQL, serta menyediakan REST API yang digunakan oleh frontend.
 
-## 🚀 Features
+## Features
 
 - JWT Authentication
 - User Management
@@ -13,7 +13,7 @@ Backend API untuk aplikasi **Ritles (Risk Level of Mental Fatigue System)** yang
 - Recommendation Management
 - RESTful API
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - FastAPI
 - SQLAlchemy
