@@ -28,8 +28,6 @@ def create_activityNote(
     )
 
 
-
-
 def get_activityNote(
     db: Session,
     activityNote_id: int,
@@ -65,15 +63,11 @@ def get_user_activityNotes(
 
 
 
-
-
 def get_all_activityNotes(
     db: Session,
 ):
 
     return get_all_activity_notes(db)
-
-
 
 
 

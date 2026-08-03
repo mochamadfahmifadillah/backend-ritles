@@ -22,11 +22,6 @@ router = APIRouter(
     tags=["Authentication"],
 )
 
-
-# =========================
-# Register
-# =========================
-
 @router.post("/register")
 def register(
     user: RegisterRequest,
@@ -46,11 +41,6 @@ def register(
             status_code=400,
             detail=str(e),
         )
-
-
-# =========================
-# Login
-# =========================
 
 @router.post(
     "/login",
@@ -82,11 +72,6 @@ def login(
             detail=str(e),
         )
 
-
-# =========================
-# Current User
-# =========================
-
 @router.get("/me")
 def current_user(
     user=Depends(get_current_user),
@@ -97,11 +82,6 @@ def current_user(
         "full_name": user.full_name,
         "email": user.email,
     }
-
-
-# =========================
-# Logout
-# =========================
 
 @router.post("/logout")
 def logout():

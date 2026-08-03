@@ -21,7 +21,6 @@ from app.repositories.recommendation_repository import (
 )
 
 
-
 def get_dashboard(
     db: Session,
     user_id: int,
@@ -29,12 +28,6 @@ def get_dashboard(
     """
     Mengambil seluruh data dashboard milik user.
     """
-
-
-
-    # ==========================
-    # User
-    # ==========================
 
     user = get_user_by_id(
         db,
@@ -45,65 +38,25 @@ def get_dashboard(
     if not user:
         raise Exception("User not found")
 
-
-
-
-
-    # ==========================
-    # Assessment
-    # ==========================
-
     assessments = get_user_assessments(
         db,
         user_id,
     )
-
-
-
-
-
-    # ==========================
-    # Activity Notes
-    # ==========================
 
     activity_notes = get_activity_notes_by_user(
         db,
         user_id,
     )
 
-
-
-
-
-    # ==========================
-    # Latest Prediction
-    # ==========================
-
     latest_prediction = get_latest_prediction(
         db,
         user_id,
     )
 
-
-
-
-
-    # ==========================
-    # Latest Recommendation
-    # ==========================
-
     latest_recommendation = get_latest_recommendation(
         db,
         user_id,
     )
-
-
-
-
-
-    # ==========================
-    # Response
-    # ==========================
 
     return {
 
@@ -125,9 +78,6 @@ def get_dashboard(
 
 
         "total_activity_notes": len(activity_notes),
-
-
-
 
 
         "latest_prediction": (

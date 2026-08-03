@@ -19,12 +19,6 @@ router = APIRouter(
     tags=["Assessment"],
 )
 
-
-
-# ==========================
-# Predict Assessment
-# ==========================
-
 @router.post("/predict")
 def predict(
     assessment: AssessmentCreate,
@@ -40,14 +34,6 @@ def predict(
 
 
     return result
-
-
-
-
-
-# ==========================
-# Assessment History
-# ==========================
 
 @router.get("/history")
 def assessment_history(

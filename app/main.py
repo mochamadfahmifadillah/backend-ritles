@@ -27,15 +27,6 @@ app = FastAPI(
 
 )
 
-
-
-
-
-# =========================
-# CORS
-# =========================
-
-
 origins = [
 
     "http://localhost:5173",
@@ -64,31 +55,9 @@ app.add_middleware(
 
 )
 
-
-
-
-
-
-# =========================
-# Database
-# =========================
-
-
 Base.metadata.create_all(
     bind=engine
 )
-
-
-
-
-
-
-
-# =========================
-# Routes
-# =========================
-
-
 
 @app.get(
     "/",
@@ -105,11 +74,6 @@ def root():
         "status": "healthy",
 
     }
-
-
-
-
-
 
 app.include_router(
     auth.router

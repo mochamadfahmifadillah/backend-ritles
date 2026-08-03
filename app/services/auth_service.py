@@ -16,12 +16,6 @@ from app.core.security import (
     create_access_token,
 )
 
-
-
-# =========================
-# Register User
-# =========================
-
 def register_user(
     db: Session,
     user: RegisterRequest,
@@ -65,7 +59,7 @@ def register_user(
     )
 
 
-    print("✅ User berhasil dibuat")
+    print("User berhasil dibuat")
     print("User ID :", new_user.id)
     print("==============================\n")
 
@@ -85,14 +79,6 @@ def register_user(
         },
 
     }
-
-
-
-
-
-# =========================
-# Login User
-# =========================
 
 def login_user(
     db: Session,
@@ -122,16 +108,12 @@ def login_user(
     if not db_user:
 
         print(
-            "❌ User tidak ditemukan"
+            "User tidak ditemukan"
         )
 
         raise Exception(
             "Invalid email or password"
         )
-
-
-
-    # Validasi password
 
     try:
 
@@ -157,7 +139,7 @@ def login_user(
     if not password_valid:
 
         print(
-            "❌ Password salah"
+            "Password salah"
         )
 
         raise Exception(
@@ -167,12 +149,9 @@ def login_user(
 
 
     print(
-        "✅ Password valid"
+        "Password valid"
     )
 
-
-
-    # Generate JWT
 
     try:
 

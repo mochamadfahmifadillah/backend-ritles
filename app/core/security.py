@@ -11,10 +11,6 @@ pwd_context = CryptContext(
     deprecated="auto",
 )
 
-
-# ==========================
-# Hash Password
-# ==========================
 def hash_password(password: str):
     print("\n========== HASH PASSWORD ==========")
     print("Input      :", repr(password))
@@ -31,9 +27,6 @@ def hash_password(password: str):
     return hashed
 
 
-# ==========================
-# Verify Password
-# ==========================
 def verify_password(
     plain_password: str,
     hashed_password: str,
@@ -55,10 +48,6 @@ def verify_password(
 
     return result
 
-
-# ==========================
-# Create JWT
-# ==========================
 def create_access_token(data: dict):
     to_encode = data.copy()
 

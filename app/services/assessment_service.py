@@ -21,10 +21,6 @@ def predict_assessment(
     assessment: AssessmentCreate,
 ):
 
-    # =========================
-    # Hitung Fatigue Score
-    # =========================
-
     score = (
         assessment.study_duration * 4 +
         assessment.device_usage * 3 +
@@ -32,18 +28,10 @@ def predict_assessment(
         assessment.sleep_duration * 2
     )
 
-
-    # Batasi nilai 0 - 100
-
     score = max(
         0,
         min(score, 100)
     )
-
-
-    # =========================
-    # Tentukan Risk Level
-    # =========================
 
     if score >= 80:
         risk = "Tinggi"
@@ -53,11 +41,6 @@ def predict_assessment(
 
     else:
         risk = "Rendah"
-
-
-    # =========================
-    # Simpan Assessment
-    # =========================
 
     assessment_data = {
         "user_id": user_id,
@@ -74,11 +57,6 @@ def predict_assessment(
         assessment_data
     )
 
-
-    # =========================
-    # Simpan Prediction
-    # =========================
-
     prediction_data = {
         "user_id": user_id,
         "fatigue_score": score,
@@ -91,11 +69,6 @@ def predict_assessment(
         db,
         prediction_data
     )
-
-
-    # =========================
-    # Buat Recommendation
-    # =========================
 
     if risk == "Tinggi":
 
@@ -129,11 +102,6 @@ def predict_assessment(
         db,
         recommendation_data
     )
-
-
-    # =========================
-    # Response
-    # =========================
 
     return {
         "message": "Assessment berhasil",
