@@ -43,6 +43,7 @@ origins = [
     "https://ritles-web-apps-16oy.vercel.app",
     "https://ritles-web-apps-news.vercel.app",
     "https://ritles-web-apps-news-git-main-fahmis-projects-58b8f18c.vercel.app",
+    "https://ritlesweb.vercel.app",
 
 ]
 
